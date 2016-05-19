@@ -36,24 +36,19 @@ public class ClientConnectionHandler implements Runnable {
 						+ inSocket.getPort() + "> "
 						+ message);
 
+				//TODO: move exceptions to validateOutSocket
 				for (Socket outSocket : clientsSockets) {
 					try {
-						if (outSocket.isClosed()) continue;
-						if (!outSocket.isBound()) continue;
-						if (!outSocket.isConnected()) continue;
-						if (outSocket == this.inSocket) continue;
+						if (validateOutSocket(outSocket)) continue;
 						logger.info("Writing message " + message + " to socket " + outSocket);
 
-						BufferedWriter socketWriter = new BufferedWriter(new OutputStreamWriter(outSocket.getOutputStream()));
-						socketWriter.write(message);
-						socketWriter.newLine();
-						socketWriter.flush();
+						businessSocketWriter(message, outSocket);
 					} catch (IOException e) {
 						logger.error("Error writing message " + message + " to socket " + outSocket + ". Closing socket", e);
 						try {
 							outSocket.close();
-						} catch (IOException innerE) {
-							logger.error("Error closing socket ", innerE);
+						} catch (IOException closingSocketException) {
+							logger.error("Error closing socket ", closingSocketException);
 						}
 
 						logger.error("Removing connection " + outSocket);
@@ -75,5 +70,16 @@ public class ClientConnectionHandler implements Runnable {
 			}
 
 		}
+	}
+
+	private void businessSocketWriter(String message, Socket outSocket) throws IOException {
+		BufferedWriter socketWriter = new BufferedWriter(new OutputStreamWriter(outSocket.getOutputStream()));
+		socketWriter.write(message);
+		socketWriter.newLine();
+		socketWriter.flush();
+	}
+
+	private boolean validateOutSocket(Socket outSocket) {
+		return outSocket.isClosed() || !outSocket.isBound() || !outSocket.isConnected() || outSocket == this.inSocket;
 	}
 }

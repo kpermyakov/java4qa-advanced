@@ -1,14 +1,13 @@
 package com.db.edu.chat.server;
 
 
-import static com.db.edu.chat.server.TestUtils.sleep;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.Socket;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import static com.db.edu.chat.server.TestUtils.sleep;
 
 
 public class ChatServerAdminTest {

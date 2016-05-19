@@ -1,13 +1,13 @@
 package com.db.edu.chat.server;
 
-import static org.junit.Assume.assumeNotNull;
-
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.Socket;
+
+import static org.junit.Assume.assumeNotNull;
 
 public class JUnitLoadTest {
     private static final Logger logger = LoggerFactory.getLogger(JUnitLoadTest.class);
@@ -30,20 +30,17 @@ public class JUnitLoadTest {
         final BufferedReader readerClientSocketReader
                 = new BufferedReader(new InputStreamReader(readerClientSocket.getInputStream()));
 
-        Thread readerClient = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    String gotMessage;
+        Thread readerClient = new Thread(() -> {
+            try {
+                String gotMessage;
 
-                    do {
-                        gotMessage = readerClientSocketReader.readLine();
-                        logger.debug("Got msg: " + gotMessage);
-                    } while (!sentMessage.equals(gotMessage));
+                do {
+                    gotMessage = readerClientSocketReader.readLine();
+                    logger.debug("Got msg: " + gotMessage);
+                } while (!sentMessage.equals(gotMessage));
 
-                } catch (IOException e) {
-                    gotException = e;
-                }
+            } catch (IOException e) {
+                gotException = e;
             }
         });
         readerClient.start();

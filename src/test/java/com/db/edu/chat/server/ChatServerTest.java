@@ -1,21 +1,15 @@
 package com.db.edu.chat.server;
 
 
-import static org.junit.Assert.assertEquals;
-
-import static com.db.edu.chat.server.TestUtils.sleep;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
-
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+
+import java.io.*;
+import java.net.Socket;
+
+import static com.db.edu.chat.server.TestUtils.sleep;
+import static org.junit.Assert.assertEquals;
 
 
 public class ChatServerTest {
