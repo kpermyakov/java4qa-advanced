@@ -79,7 +79,7 @@ public class ClientConnectionHandler implements Runnable {
 		socketWriter.flush();
 	}
 
-	private boolean validateOutSocket(Socket outSocket) {
+	private boolean validateOutSocket (Socket outSocket) throws IOException{
 		return outSocket.isClosed() || !outSocket.isBound() || !outSocket.isConnected() || outSocket == this.inSocket;
 	}
 }
