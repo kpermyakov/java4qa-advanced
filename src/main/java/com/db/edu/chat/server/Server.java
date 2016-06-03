@@ -10,7 +10,7 @@ public class Server {
 	private static final Logger logger = LoggerFactory.getLogger(Server.class);
 	
 	public static final String HOST = "127.0.0.1";
-	public static final int PORT = 4448;
+	public static final int PORT = 4458;
 	
 	public static volatile ServerSocket serverSocket;
 	private Acceptor acceptor = new Acceptor();
