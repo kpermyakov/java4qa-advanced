@@ -1,5 +1,6 @@
 package com.db.edu.chat.server;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ public class JUnitLoadTest {
 
     private IOException gotException = null;
 
+    @Ignore
     @Test(timeout = 1000)
     public void shouldGetMessageBackWhenSendMessage() throws IOException, InterruptedException {
         final String sentMessage = Thread.currentThread().getName() + ";seed:" + Math.random();
